@@ -2,24 +2,24 @@
 <html lang="en">
     <title>Intro page</title>
     <meta charset="utf-8">
-    <style>
-        a.topnav_bar_item{
-            text-decoration: none;
-            font-family: fantasy;
-            color: ghostwhite;
-            font-size: 25px;
-            padding-left: 20px;
-        }
-        a.topnav_icon_home{
-            padding: 10px;
-        }
-        head{
-            background-color: darkgray;
-        }
-        table, th,td{
-            border: 1px solid black;
-        }
-    </style>
+        <style>
+            a.topnav_bar_item{
+                text-decoration: none;
+                font-family: fantasy;
+                color: ghostwhite;
+                font-size: 25px;
+                padding-left: 20px;
+            }
+            a.topnav_icon_home{
+                padding: 10px;
+            }
+            head{
+                background-color: darkgray;
+            }
+            table, th,td{
+                border: 1px solid black;
+            }
+        </style>
 <head>
     <div style="text-align: center;background-repeat: no-repeat; font-family: fantasy;color: crimson;background-image: url(../ProductImg/top_theme_2.jpg); font-size: 40px;"><h1>Online games store</h1></div>
     <div style="background-color : black;">
@@ -39,7 +39,6 @@
             
             <a class="topnav_bar_item" href="../Controller/gameController.php" title="Store products">Products</a>
             <?php
-                session_start();
                 if(!isset($_SESSION['user'])){
             ?>
                     <a class="topnav_bar_item" href="../login_reg.php" title="Store products">Sign in</a>
@@ -47,9 +46,11 @@
                 }
                 else{
                     ?>
-                    <a class="topnav_bar_item" href="index.php">Welcome</a>
+                    <a class="topnav_bar_item" href="../index.php">Welcome</a>
                     <?php
                 }
+                #####################           ADD TO SHOPPING CART HANDLE ###################
+                
             ?>
         </div>
     </div>
@@ -57,22 +58,37 @@
 <body>
 <?php
     $index=1;
-    // foreach($gameList as $game){
-    //     echo "No. ".$index."- ID : ".$game->game_id." product name: ".$game->game_name.' price :'.$game->game_price.' producer :'.$game->game_producer.'<img src="'.$game->game_image.'" height="80px" width="80px">'."<br/>";
-    //     $index++;
-    // }
-    echo "<table><tr><th>Index</th><th>Product name</th><th>Price</th><th>Producer</th><th>Image</th></tr>";
+    echo "<table><tr><th>Index</th><th>Product name</th><th>Price</th><th>Producer</th><th>Image</th><th></th></tr>";
     $index=1;
     foreach($gameList as $game){
         // echo '<tr><a href="?gid='.$game->game_id.'">'.$game->game_name.'</a>';
-        echo "<tr><td>".$index.'</td><td><a href="?gid='.$game->game_id.'">'.$game->game_name.'</a>'."</td><td>".$game->game_price."</td><td>".$game->game_producer.'</td><td><img src="'.$game->game_image.'" height="80px" width="80px"></td>';
+        ?>
+        <form action="?action=add&id=<?php echo $game->game_id ?>" method="POST">
+        <?php
+        echo "<tr>
+            <td>".$index.'</td>
+            <td><a href="?gid='.$game->game_id.'">'.$game->game_name.'</a>'."</td>
+            <td>".$game->game_price."</td>
+            <td>".$game->game_producer.'</td>
+            <td><img src="'.$game->game_image.'" height="80px" width="80px"></td>
+            <td><input type="number" name="product_add_quantity" value="1" min="1"/>
+            <input type="hidden" name="hidden_product_id" value="'.$game->game_id.'"/>
+            <input type="hidden" name="hidden_product_name" value="'.$game->game_name.'"/>
+            <input type="hidden" name="hidden_product_price" value="'.$game->game_price.'"/>
+            <input type="submit" name="add_to_cart" value="add to cart" class="btn btn-success"/></td>
+            
+        </tr>';
+        ?>
+        </form>
+        <?php
         $index++;
     }
     echo '</table>';
 ?>
+<a href="../View/shopping_cart.php" style="text-decoration: none;">View cart</a>
+
     
-<!-- <img src="../ProductImg/AC_Odyssey.jpg"> -->
-<p><a href="../index.html">Home page</a></p>
+<p><a href="../index.php">Home page</a></p>
 </body>
 
 </html>

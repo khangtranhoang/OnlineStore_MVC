@@ -36,7 +36,7 @@
                 }
                 else{
                     ?>
-                    <a class="topnav_bar_item" href="index.php">Welcome</a>
+                    <a class="topnav_bar_item" href="../index.php">Welcome</a>
                     <?php
                 }
             ?>

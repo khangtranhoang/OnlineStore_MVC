@@ -13,6 +13,7 @@
 <form action="Controller/userController.php" method="post">
   <div class="container">
     <label for="username_label"><b>Username</b></label>
+    <?php if(isset($_SESSION['login fail']))  echo '<p style="color:red">Incorrect username or password</p>'?>
     <input type="text" placeholder="Enter Username" name="username_login" required>
     <label for="passwd_label"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="passwd_login" required>
